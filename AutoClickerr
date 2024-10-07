@@ -1,0 +1,32 @@
+local UserInputService = game:GetService("UserInputService")
+local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()
+
+local clickEnabled = false -- 初始設置為關閉自動點擊
+local targetPosition = Vector2.new(960, 472) -- 目標點擊位置
+local runService = game:GetService("RunService")
+
+-- 模擬點擊函數
+local function clickAtPosition()
+    mousemoveabs(targetPosition.X, targetPosition.Y)
+    mouse1click()
+end
+
+-- 監聽按鍵輸入
+UserInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.L then
+        clickEnabled = not clickEnabled -- 每次按下 F 鍵時切換自動點擊的狀態
+        if clickEnabled then
+            print("Auto-click enabled")
+        else
+            print("Auto-click disabled")
+        end
+    end
+end)
+
+-- 每幀檢查自動點擊狀態
+runService.RenderStepped:Connect(function()
+    if clickEnabled then
+        clickAtPosition() -- 如果開啟自動點擊，則執行點擊
+    end
+end)
