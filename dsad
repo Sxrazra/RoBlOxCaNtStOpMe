@@ -1,0 +1,538 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/matas3535/gamesneeze/main/Library.lua"))()
+
+local Window = Library:New({
+    Name = "Dorxer. Hub", -- name, Name, title, Title
+})
+
+-- GUI 可見性變數
+local isVisible = true
+local ToggleMenuKey = Enum.KeyCode.RightShift -- 你可以更改這個按鍵
+
+game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
+    if not gameProcessed and input.KeyCode == ToggleMenuKey then
+        isVisible = not isVisible
+        Window:Fade(isVisible) -- 控制 GUI 顯示/隱藏
+
+        -- 控制滑鼠行為
+        if isVisible then
+            UIS.MouseBehavior = Enum.MouseBehavior.Default -- 顯示並自由移動滑鼠
+            UIS.MouseIconEnabled = true
+        else
+            UIS.MouseBehavior = Enum.MouseBehavior.Free -- 確保滑鼠不會被鎖定
+            UIS.MouseIconEnabled = true
+        end
+    end
+end)
+
+--[[
+    Window:SetName("string"),
+	Window:GetConfig(),
+	Window:LoadConfig("string"),
+	Window:Move("vector2"),
+	Window:CloseContent(),
+	Window:IsOverContent(),
+	Window:Unload(),
+	Window:Fade(),
+]]
+
+local Page = Window:Page({
+    Name = "Menu" -- name, Name, title, Title
+})
+
+
+local PlayerPage = Window:Page({
+    Name = "Players"
+})
+
+
+--[[
+    Page:GetTotalYSize("string"),
+	Page:Update(),
+	Page:Show()
+]]
+
+local PageSection1 = Page:Section({
+    Name = "Function I", -- name, Name, title, Title
+    Fill = true,
+    Side = "Left"
+})
+
+
+
+--[[
+    Section:Update("number")
+]]
+
+
+
+
+
+
+
+
+--[[
+    (section, Sections) = "table", -- { "strings" }
+	(size, Size) = "number",
+	(fill, Fill) = "boolean",
+	(side, Side) = "string",
+	(callback, Callback, callBack, CallBack) = "function"
+]]
+
+local Label = PageSection1:Label({
+    Name = "Label", -- name, Name, title, Title
+    Center = true
+})
+
+local TextBox = PageSection1:TextBox({
+    Default = "TextBox", 
+    Placeholder =  "Type Here...", 
+    Max = 100,
+    Reactive = true,
+    Callback = function(value) 
+    end
+})
+
+--[[
+    TextBox:Get(),
+	TextBox:Set("string")
+]]
+
+
+
+
+local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sxrazra/0/refs/heads/main/Es"))();
+
+--// Master switch
+ESP.Enabled = true;
+
+-- ESP 配置
+ESP.BoxType = "Corner Box Esp"
+ESP.ShowTracer = true
+ESP.ShowDistance = true
+ESP.ShowHealth = true
+ESP.ShowName = true
+ESP.ShowBox = true
+
+-- 刷新ESP功能
+local function RefreshESP()
+    -- 刪除已存在的ESP
+    ESP:Unload()  -- 如果ESP有卸載函數
+    -- 重新載入
+    ESP:Load()
+end
+-- toggle 控制 Name 顯示
+local ToggleShowName = PageSection1:Toggle({
+    Name = "Show Name", 
+    Default = ESP.ShowName, -- 預設為顯示
+    callback = function(value)
+        ESP.ShowName = value  -- 更新對應的配置
+        RefreshESP()  -- 刷新ESP
+    end
+})
+-- toggle 控制 Box 顯示
+local ToggleShowBox = PageSection1:Toggle({
+    Name = "Show Box", 
+    Default = ESP.ShowBox, -- 預設為顯示
+    callback = function(value)
+        ESP.ShowBox = value  -- 更新對應的配置
+        RefreshESP()  -- 刷新ESP
+    end
+})
+
+-- toggle 控制 Health 顯示
+local ToggleShowHealth = PageSection1:Toggle({
+    Name = "Show Health", 
+    Default = ESP.ShowHealth, -- 預設為顯示
+    callback = function(value)
+        ESP.ShowHealth = value  -- 更新對應的配置
+        RefreshESP()  -- 刷新ESP
+    end
+})
+
+
+
+-- toggle 控制 Tracer 顯示
+local ToggleShowTracer = PageSection1:Toggle({
+    Name = "Show Tracer", 
+    Default = ESP.ShowTracer, -- 預設為顯示
+    callback = function(value)
+        ESP.ShowTracer = value  -- 更新對應的配置
+        RefreshESP()  -- 刷新ESP
+    end
+})
+
+-- toggle 控制 Distance 顯示
+local ToggleShowDistance = PageSection1:Toggle({
+    Name = "Show Distance", 
+    Default = ESP.ShowDistance, -- 預設為顯示
+    callback = function(value)
+        ESP.ShowDistance = value  -- 更新對應的配置
+        RefreshESP()  -- 刷新ESP
+    end
+})
+
+-- 初始化 ESP 設置
+ESP.ShowBox = true
+ESP.ShowName = true
+ESP.ShowHealth = true
+ESP.ShowTracer = true
+ESP.ShowDistance = true
+
+
+
+
+
+
+
+
+--[[
+    Toggle:Get(),
+	Toggle:Set("boolean"),
+	Toggle:Colorpicker("table"), -- (Window:Colorpicker Derivative),
+	Toggle:Keybind("table"), -- (Window:Keybind Derivative)
+]]
+
+
+
+--[[
+    Keybind:Get(),
+	Keybind:Set("table"),
+	Keybind:Shorten("string"),
+	Keybind:Change("input"),
+	Keybind:Active(),
+	Keybind:Reset()
+]]
+
+
+
+--[[
+    Keybind:Get(),
+	Keybind:Set("table"),
+	Keybind:Shorten("string"),
+	Keybind:Change("input"),
+	Keybind:Active(),
+	Keybind:Reset()
+]]
+
+
+
+local Slider1 = PageSection1:Slider({
+    Name = "Slider", -- name, Name, title, Title
+    Min = 1, -- def, Def, default, Default
+    Max = 100, -- min, Min, minimum, Minimum
+    Default = 1, -- max, Max, maximum, Maximum
+    --Suffix = "ms", -- suffix, Suffix, ending, Ending, prefix, Prefix, measurement, Measurement
+    --decimals = 0.01,
+    --Disabled = false, -- disable, Disable, disabled, Disabled
+    callback = function(value)
+        print(value)
+    end
+})
+
+--[[
+    Slider:Get(),
+	Slider:Set("number"),
+	Slider:Refresh()
+]]
+
+local MultiBox = PageSection1:Multibox({
+    Name = "MultiBox", 
+    Default = {"1", "2"}, 
+    Options = {"1", "2", "3", "4", "5", "6", "7", "8"}, 
+    Min = 2, 
+    Max = 5, 
+    callback = function(value) 
+        print(value) 
+    end
+})
+
+--[[
+    Multibox:Get(),
+	Multibox:Set("string"),
+	Multibox:Update()
+]]
+
+local DropDown = PageSection1:Dropdown({
+    Name = "DropDown", -- name, Name, title, Title
+    Default = "1",
+    Max = "3",
+    Options = {"1", "2", "3"},
+    callback = function(value)
+        print(value)
+    end
+})
+
+--[[
+    Dropdown:Get(),
+	Dropdown:Set("string"),
+	Dropdown:Update()
+]]
+
+
+
+--[[
+    Colorpicker:Get(),
+	Colorpicker:Set("table"),
+	Colorpicker:Refresh(),
+	Colorpicker:Colorpicker() -- (Window:Colorpicker Derivative)
+]]
+
+local Label = PageSection1:Label({
+    Name = "ListBox", -- name, Name, title, Title
+    Center = true
+})
+
+local List1 = PageSection1:List({
+    Name = "List", -- name, Name, title, Title
+    Default = 1,
+    Max = 5,
+    Options = {"1", "2", "3", "4", "5"},
+    Collapsable = true  -- 確保這裡有設置 Collapsable 屬性，這樣才可以折疊
+})
+
+
+--[[
+    List:Get(),
+	List:Set("table"),
+	List:Refresh(),
+	List:UpdateScroll()
+]]
+
+
+
+local PlayerList = PlayerPage:PlayerList({})
+
+--[[
+    PlayerList:GetSelection(),
+	PlayerList:UpdateScroll(),
+	PlayerList:Refresh("table"),
+	PlayerList:Update()
+]]
+
+
+local PageSection2 = Page:Section({
+    Name = "Function II", -- name, Name, title, Title
+    Fill = true,
+    Side = "Right"
+})
+
+
+local Label = PageSection2:Label({
+    Name = "Player", -- name, Name, title, Title
+    Center = true
+})
+local Button1 = PageSection2:Button({
+    Name = "Tpwalk", -- name, Name, title, Title
+    callback = function(value)
+        local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService") -- To capture key press
+
+local tpwalking = false  -- Variable to track whether tpwalk is active
+local hb = RunService.Heartbeat  -- Reference to Heartbeat event
+
+-- Function to start tpwalk
+local function startTpWalk(speaker, speed)
+    tpwalking = true
+    local chr = speaker.Character
+    local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
+
+    while tpwalking and chr and hum and hum.Parent do
+        local delta = hb:Wait()  -- Wait for next heartbeat frame
+        if hum.MoveDirection.Magnitude > 0 then  -- Check if player is moving
+            if speed and tonumber(speed) then
+                -- Move character by teleporting in the direction they are walking
+                chr:TranslateBy(hum.MoveDirection * tonumber(speed) * delta * 10)
+            else
+                -- Default movement speed if no specific speed is provided
+                chr:TranslateBy(hum.MoveDirection * delta * 10)
+            end
+        end
+    end
+end
+
+-- Function to stop tpwalk
+local function stopTpWalk()
+    tpwalking = false
+end
+
+-- Function to toggle tpwalk on and off
+local function toggleTpWalk()
+    local player = Players.LocalPlayer
+    if tpwalking then
+        stopTpWalk()
+        print("Teleport walk stopped")
+    else
+        startTpWalk(player, 1.5) -- You can change the speed (10 is default here)
+        print("Teleport walk started")
+    end
+end
+
+-- Bind the toggle function to a key press (for example, the "T" key)
+UserInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.T then  -- When "T" is pressed
+        toggleTpWalk()
+    end
+end)
+        print(value)
+    end
+})
+
+
+local brightLoop -- 用來存儲循環事件
+local isFullbrightEnabled = false -- 初始狀態為關閉
+
+local function startFullbright()
+    if isFullbrightEnabled then return end -- 防止重複啟動
+    isFullbrightEnabled = true
+    local Lighting = game:GetService("Lighting")
+    brightLoop = game:GetService("RunService").RenderStepped:Connect(function()
+        Lighting.Brightness = 2
+        Lighting.ClockTime = 14
+        Lighting.FogEnd = 100000
+        Lighting.GlobalShadows = false
+        Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+    end)
+end
+
+local function stopFullbright()
+    if not isFullbrightEnabled then return end -- 防止重複關閉
+    isFullbrightEnabled = false
+    if brightLoop then
+        brightLoop:Disconnect()
+        brightLoop = nil
+    end
+    local Lighting = game:GetService("Lighting")
+    Lighting.Brightness = 1 -- 恢復默認亮度
+    Lighting.ClockTime = 12 -- 恢復默認時間
+    Lighting.FogEnd = 1000 -- 恢復默認霧距離
+    Lighting.GlobalShadows = true -- 開啟陰影
+    Lighting.OutdoorAmbient = Color3.fromRGB(255, 255, 255) -- 恢復默認環境光
+end
+
+local Toggle1 = PageSection2:Toggle({
+    Name = "Fullbright", -- name, Name, title, Title
+    callback = function(value)
+        if value then
+            startFullbright()
+        else
+            stopFullbright()
+        end
+    end
+})
+
+local isVisible = true
+local ToggleMenuKey = Enum.KeyCode.RightShift -- 預設按鍵
+
+local Page = Window:Page({
+    Name = "Settings"
+})
+
+local PageSection1 = Page:Section({
+    Name = "UI Settings",
+    Fill = true,
+    Side = "Left"
+})
+
+-- 控制UI顯示和隱藏的邏輯
+local function toggleUI()
+    isVisible = not isVisible
+    Window:Fade(isVisible)
+
+    -- 控制滑鼠行為
+    if isVisible then
+        UIS.MouseBehavior = Enum.MouseBehavior.Default
+        UIS.MouseIconEnabled = true
+    else
+        UIS.MouseBehavior = Enum.MouseBehavior.Free
+        UIS.MouseIconEnabled = true
+    end
+end
+
+-- 讓玩家可以更改 UI 隱藏的快捷鍵
+local Keybind1 = PageSection1:Keybind({
+    Name = "UI hidebind",
+    Default = ToggleMenuKey, 
+    KeybindName = "Keybind", 
+    Mode = "Toggle", 
+    Callback = function(Input, State)
+        if State then
+            toggleUI() -- 切換 UI 顯示狀態
+        end
+    end
+})
+
+-- 確保新的快捷鍵只會有效，舊的 `RightShift` 會被禁用
+game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
+    if not gameProcessed then
+        -- 確保只在設定的 `Keybind` 快捷鍵按下時才觸發
+        if input.KeyCode == ToggleMenuKey then
+            toggleUI() -- 切換 UI 顯示狀態
+        end
+    end
+end)
+
+-- 不再需要 RightShift 的快捷鍵，因為已經設定了新的按鍵
+
+
+
+
+local PageSection1 = Page:Section({
+    Name = "Unload Gui",
+    Fill = true,
+    Side = "Right"
+})
+
+local Button1 = PageSection1:Button({
+    Name = "Unload",
+    callback = function()
+        Window:Unload() -- 卸載 GUI
+    end
+})
+
+
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Sxrazra/Sx/refs/heads/main/anc"))()
+
+
+local Page = Window:Page({
+    Name = "Development"
+})
+
+local PageSection1 = Page:Section({
+    Name = "Script Hub",
+    Fill = true,
+    Side = "Left"
+})
+
+local Button1 = PageSection1:Button({
+    Name = "Dex V3 / Explorer", -- name, Name, title, Title
+    callback = function(value)
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua"))()
+        print(value)
+    end
+})
+
+local Button1 = PageSection1:Button({
+    Name = "Infinite IY", -- name, Name, title, Title
+    callback = function(value)
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Sxrazra/Script/refs/heads/main/Infinite"))()
+        print(value)
+    end
+})
+
+local Button1 = PageSection1:Button({
+    Name = "Get model Name", -- name, Name, title, Title
+    callback = function(value)
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Sxrazra/Script/refs/heads/main/SADadsd"))()
+        print(value)
+    end
+})
+
+
+
+
+
+
+
+Window:Initialize() -- DO NOT REMOVE
